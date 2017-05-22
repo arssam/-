@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function throttle(fn,interval) {
+			var _self = fn; //保存需要被延迟执行的函数引用
+			var timer = null;  //定时器
+			var isFirst = true; //是否第一次调用
+			debugger
+			return function() {
+				var _this = this  //保存this的指向
+				console.log(_this) //window
+				var args = arguments; //保存参数
+				if(isFirst){
+					_self.apply(_this,args)
+					isFirst = false; 
+					return //终止执行
+				}
+				if(timer) { //这里是节流函数的关键
+					return
+				}
+				timer = setTimeout(function() {
+					clearTimeout(timer)
+					timer = null
+					_self.apply(_this,args)
+				},interval || 500)
+			}
+		}
+		
+		window.onresize = throttle(function() {
+			console.log('111')
+		})
+	</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var arr = []
+		for(var i=0;i<900;i++){
+			arr.push({name:i})
+		}
+		
+		//创建节点
+		function createOne(data){
+				var div = document.createElement('div')
+				div.innerHTML = '你好' + data['name']
+				document.body.appendChild(div)
+			
+		}
+		
+		/***分时函数timechunk
+		 * arr是数据，fn是回调函数，count是每次创建节点的节点数
+		 */
+		function timechunk(arr,fn,count){
+			var timer = null
+			debugger
+			//创建dom节点
+			function start(){
+				for(var i=0;i<Math.min(count,arr.length);i++){
+					var obj = arr.shift()
+					fn(obj)
+				}
+			}
+			return function(){
+				timer = setInterval(function(){
+					if(arr.length === 0) {
+						clearInterval(timer)
+						return
+					}
+					start()
+				},500)
+			}
+		}
+		
+		var renderList = timechunk(arr,createOne,10)
+		renderList()
+	</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var arr =[]
+		for(var i=0;i<900;i++){
+			arr.push({name:i})
+		}
+		
+		renderList(arr)
+		
+		//渲染列表
+		function renderList(data){
+			for(var i=0;i<data.length;i++){
+				var div = document.createElement('div')
+				div.innerHTML = '你好' + data[i]['name']
+				document.body.appendChild(div)
+			}
+		}
+	</script>
+</html>
